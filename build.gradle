@@ -112,6 +112,11 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    maven {
+        url 'https://maven.squiddev.cc'
+        content { includeGroup 'cc.tweaked' }
+    }
+    flatDir { dirs 'libs' }
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
 
@@ -129,6 +134,10 @@ dependencies {
     // If the group id is "net.minecraft" and the artifact id is one of ["client", "server", "joined"],
     // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    compileOnly fg.deobf("cc.tweaked:cc-tweaked-${minecraft_version}-forge-api:${cc_version}")
+    compileOnly "cc.tweaked:cc-tweaked-${minecraft_version}-core-api:${cc_version}"
+    compileOnly fg.deobf('local.hex:hexcasting-forge-1.20.1:0.11.1-7-pre-9')
+    compileOnly 'org.jetbrains.kotlin:kotlin-stdlib:1.9.0'
 
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
